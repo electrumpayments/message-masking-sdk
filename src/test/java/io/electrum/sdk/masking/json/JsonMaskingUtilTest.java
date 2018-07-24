@@ -10,7 +10,20 @@ import java.util.Set;
 
 public class JsonMaskingUtilTest {
 
-   private String originalJson = "{\"thing\":[1,{\"thing\":{\"field\":\"value\"}},3],\"otherThing\":{\"thing\":145}}";
+   private String originalJson = "{\n" +
+           "   \"thing\" : [\n" +
+           "      1,\n" +
+           "      {\n" +
+           "         \"thing\" : {\n" +
+           "            \"field\" : \"value\"\n" +
+           "         }\n" +
+           "      },\n" +
+           "      3\n" +
+           "   ],\n" +
+           "   \"otherThing\" : {\n" +
+           "      \"thing\" : 145\n" +
+           "   }\n" +
+           "}";
 
    @Test
    public void testPathNotFound() throws Exception {
@@ -39,7 +52,20 @@ public class JsonMaskingUtilTest {
 
       // Even though "thing" appears a number of times, we only want non-object, non-array fields to get masked,
       // of which there is only one. The other field is specified in full.
-      String expected = "{\"thing\":[1,{\"thing\":{\"field\":\"*****\"}},3],\"otherThing\":{\"thing\":\"*\"}}";
+      String expected = "{\n" +
+              "   \"thing\" : [\n" +
+              "      1,\n" +
+              "      {\n" +
+              "         \"thing\" : {\n" +
+              "            \"field\" : \"*****\"\n" +
+              "         }\n" +
+              "      },\n" +
+              "      3\n" +
+              "   ],\n" +
+              "   \"otherThing\" : {\n" +
+              "      \"thing\" : \"*\"\n" +
+              "   }\n" +
+              "}";
 
       Assert.assertEquals(masked, expected);
    }

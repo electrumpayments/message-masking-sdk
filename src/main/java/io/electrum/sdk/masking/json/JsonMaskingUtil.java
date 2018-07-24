@@ -3,12 +3,13 @@ package io.electrum.sdk.masking.json;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.InvalidJsonException;
+import com.jayway.jsonpath.InvalidPathException;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 import com.jayway.jsonpath.PathNotFoundException;
+import com.jayway.jsonpath.internal.JsonFormatter;
 import net.minidev.json.JSONArray;
 
-import java.nio.file.InvalidPathException;
 import java.util.Map;
 import java.util.Set;
 
@@ -21,8 +22,9 @@ public class JsonMaskingUtil {
     * @param json  the string containing the JSON to be masked
     * @param units masking units which specify which masking schemes should be applied to fields
     *              identified by JSONPath strings
-    * @return a non-pretty-printed string which is a masked version of the originally supplied string
-    * @throws JsonMaskingException
+    * @return a pretty-printed string which is a masked version of the originally supplied string
+    * @throws JsonMaskingException if the string provided cannot be parsed as JSON, or if the supplied JsonPath
+    *                              is invalid
     */
    public static String maskInJsonString(String json, Set<JsonMaskingUnit> units)
            throws JsonMaskingException {
@@ -61,7 +63,7 @@ public class JsonMaskingUtil {
                // Integer and String. We need a string, so we convert accordingly
                String newValue;
 
-               if (maskTarget instanceof Integer) {
+               if (maskTarget instanceof Number) {
                   newValue = maskTarget.toString();
                } else if (maskTarget instanceof String) {
                   newValue = (String) maskTarget;
@@ -74,7 +76,7 @@ public class JsonMaskingUtil {
             }
          }
 
-         return pathContext.jsonString();
+         return JsonFormatter.prettyPrint(pathContext.jsonString());
       } catch (InvalidJsonException ije) {
          throw new JsonMaskingException("Error attempting to parse the supplied String as JSON", ije);
       } catch (InvalidPathException ipe) {
