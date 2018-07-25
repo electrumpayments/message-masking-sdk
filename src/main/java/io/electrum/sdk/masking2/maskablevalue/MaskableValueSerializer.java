@@ -1,11 +1,11 @@
-package io.electrum.sdk.masking.maskablevalue;
+package io.electrum.sdk.masking2.maskablevalue;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import io.electrum.sdk.masking.MaskAll;
-import io.electrum.sdk.masking.Masker;
+import io.electrum.sdk.masking2.MaskAll;
+import io.electrum.sdk.masking2.Masker;
 
 import java.io.IOException;
 

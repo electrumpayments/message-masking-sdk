@@ -1,6 +1,6 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
-import io.electrum.sdk.masking.MaskAll;
+import io.electrum.sdk.masking2.MaskAll;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;

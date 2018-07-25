@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking.maskablevalue;
+package io.electrum.sdk.masking2.maskablevalue;
 
 /**
  * This object may be used in APIs to allow downstream to dictate which fields should be masked.
