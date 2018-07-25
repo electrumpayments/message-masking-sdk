@@ -1,6 +1,5 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
-import io.electrum.sdk.masking.MaskAll;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
@@ -22,8 +21,8 @@ public class XmlMaskingUtilTest {
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
       
-      XmlMaskingUnit unit = new XmlMaskingUnit("//MerchandiseIssuer/@Id", new MaskAll());
-      XmlMaskingUnit unit2 = new XmlMaskingUnit("//MerchandiseItem/@PIN", new MaskAll());
+      io.electrum.sdk.masking2.xml.XmlMaskingUnit unit = new io.electrum.sdk.masking2.xml.XmlMaskingUnit("//MerchandiseIssuer/@Id", new io.electrum.sdk.masking2.MaskAll());
+      io.electrum.sdk.masking2.xml.XmlMaskingUnit unit2 = new io.electrum.sdk.masking2.xml.XmlMaskingUnit("//MerchandiseItem/@PIN", new io.electrum.sdk.masking2.MaskAll());
           
       String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<PrepaidMerchandise>\n"
@@ -35,7 +34,7 @@ public class XmlMaskingUtilTest {
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
       
-      Set<XmlMaskingUnit> units = new HashSet<>();
+      Set<io.electrum.sdk.masking2.xml.XmlMaskingUnit> units = new HashSet<>();
       units.add(unit);
       units.add(unit2);
       String result = XmlMaskingUtil.maskInXmlString(xml, units);
@@ -56,7 +55,7 @@ public class XmlMaskingUtilTest {
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
 
-      XmlMaskingUnit unit = new XmlMaskingUnit("/PrepaidMerchandise/Response/Pin/text()", new MaskAll());
+      io.electrum.sdk.masking2.xml.XmlMaskingUnit unit = new io.electrum.sdk.masking2.xml.XmlMaskingUnit("/PrepaidMerchandise/Response/Pin/text()", new io.electrum.sdk.masking2.MaskAll());
 
       String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<PrepaidMerchandise>\n"
@@ -69,7 +68,7 @@ public class XmlMaskingUtilTest {
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
 
-      Set<XmlMaskingUnit> units = new HashSet<>();
+      Set<io.electrum.sdk.masking2.xml.XmlMaskingUnit> units = new HashSet<>();
       units.add(unit);
       String result = XmlMaskingUtil.maskInXmlString(xml, units);
 
@@ -90,7 +89,7 @@ public class XmlMaskingUtilTest {
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
 
-      XmlMaskingUnit unit = new XmlMaskingUnit("//Tender/@Amount", new MaskAll());
+      io.electrum.sdk.masking2.xml.XmlMaskingUnit unit = new io.electrum.sdk.masking2.xml.XmlMaskingUnit("//Tender/@Amount", new io.electrum.sdk.masking2.MaskAll());
 
       String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
             + "<PrepaidMerchandise>\n"
@@ -104,7 +103,7 @@ public class XmlMaskingUtilTest {
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
 
-      Set<XmlMaskingUnit> units = new HashSet<>();
+      Set<io.electrum.sdk.masking2.xml.XmlMaskingUnit> units = new HashSet<>();
       units.add(unit);
       String result = XmlMaskingUtil.maskInXmlString(xml, units);
 

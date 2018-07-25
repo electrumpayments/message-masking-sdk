@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
