@@ -64,7 +64,12 @@ public class XmlMaskingUtil {
                Node node = nodes.item(i);
 
                if (node != null) {
-                  node.setNodeValue(unit.getMasker().mask(node.getNodeValue()));
+                  // There is no point in masking a string that is comprised of only whitespace
+                  String nodeValue = node.getNodeValue();
+
+                  if (nodeValue != null && !nodeValue.trim().isEmpty()) {
+                     node.setNodeValue(unit.getMasker().mask(nodeValue));
+                  }
                }
             }
 
