@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking;
+package io.electrum.sdk.masking2;
 
 /**
  * Masker that simply returns the value as-is. No masking done.

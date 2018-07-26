@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking;
+package io.electrum.sdk.masking2;
 
 public class MaskTrack2 extends Masker {
    private static final String SEPARATOR_1 = "D";

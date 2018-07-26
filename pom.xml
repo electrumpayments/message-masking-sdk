@@ -26,12 +26,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.electrum</groupId>
-      <artifactId>electrum-message-sdk</artifactId>
-      <version>1.5.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.glassfish.jersey.media</groupId>
       <artifactId>jersey-media-json-jackson</artifactId>
       <version>${jerseyVersion}</version>
