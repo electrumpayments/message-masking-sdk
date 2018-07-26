@@ -1,6 +1,6 @@
 package io.electrum.sdk.masking2.json;
 
-import io.electrum.sdk.masking.Masker;
+import io.electrum.sdk.masking2.Masker;
 
 import java.util.Objects;
 

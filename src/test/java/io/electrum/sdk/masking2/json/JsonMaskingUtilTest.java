@@ -1,7 +1,7 @@
 package io.electrum.sdk.masking2.json;
 
-import io.electrum.sdk.masking.MaskAll;
-import io.electrum.sdk.masking.MaskFull;
+import io.electrum.sdk.masking2.MaskAll;
+import io.electrum.sdk.masking2.MaskFull;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
