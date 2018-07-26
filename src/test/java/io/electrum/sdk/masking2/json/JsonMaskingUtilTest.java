@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking.json;
+package io.electrum.sdk.masking2.json;
 
 import io.electrum.sdk.masking.MaskAll;
 import io.electrum.sdk.masking.MaskFull;

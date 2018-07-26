@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking;
+package io.electrum.sdk.masking2;
 
 /**
  * Interface that will be used by various maskers (such as {@link MaskPan}) that define rules for how to mask the given

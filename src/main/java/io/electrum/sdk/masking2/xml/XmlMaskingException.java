@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
 public class XmlMaskingException extends Exception {
 

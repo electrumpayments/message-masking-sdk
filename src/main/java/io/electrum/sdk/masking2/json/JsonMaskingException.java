@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking.json;
+package io.electrum.sdk.masking2.json;
 
 public class JsonMaskingException extends Exception {
 

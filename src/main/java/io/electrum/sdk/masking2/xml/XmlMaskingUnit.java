@@ -1,6 +1,6 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
-import io.electrum.sdk.masking.Masker;
+import io.electrum.sdk.masking2.Masker;
 
 import java.util.Objects;
 
