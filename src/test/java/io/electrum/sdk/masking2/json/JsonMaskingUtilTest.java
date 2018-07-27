@@ -2,6 +2,7 @@ package io.electrum.sdk.masking2.json;
 
 import io.electrum.sdk.masking2.MaskAll;
 import io.electrum.sdk.masking2.MaskFull;
+import io.electrum.sdk.masking2.MaskTrack2;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -92,5 +93,22 @@ public class JsonMaskingUtilTest {
       units.add(unit2);
 
       JsonMaskingUtil.maskInJsonString("", units);
+   }
+
+   @Test
+   public void testValidEmptyJson() throws Exception {
+      JsonMaskingUnit unit = new JsonMaskingUnit("$..*", new MaskTrack2());
+
+      Set<JsonMaskingUnit> units = new HashSet<>();
+      units.add(unit);
+
+      String json = "{}";
+
+      // Pretty printing adds a newline, 3 spaces and another newline
+      String expected = "{\n   \n}";
+
+      String masked = JsonMaskingUtil.maskInJsonString(json, units);
+
+      Assert.assertEquals(masked, expected);
    }
 }
