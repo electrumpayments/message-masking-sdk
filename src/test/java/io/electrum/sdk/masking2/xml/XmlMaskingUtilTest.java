@@ -110,4 +110,18 @@ public class XmlMaskingUtilTest {
 
       assertEquals(expResult, result);
    }
+
+   @Test(expectedExceptions = XmlMaskingException.class)
+   public void testEmptyString() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUtil.maskInXmlString("", units);
+   }
+
+   @Test(expectedExceptions = XmlMaskingException.class)
+   public void testNullString() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUtil.maskInXmlString(null, units);
+   }
 }

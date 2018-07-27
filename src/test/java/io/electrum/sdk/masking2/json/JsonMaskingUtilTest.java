@@ -69,4 +69,28 @@ public class JsonMaskingUtilTest {
 
       Assert.assertEquals(masked, expected);
    }
+
+   @Test(expectedExceptions = JsonMaskingException.class)
+   public void testNullString() throws Exception {
+      JsonMaskingUnit unit1 = new JsonMaskingUnit("$..thing", new MaskFull());
+      JsonMaskingUnit unit2 = new JsonMaskingUnit("$.thing[1].thing.field", new MaskAll());
+
+      Set<JsonMaskingUnit> units = new HashSet<>();
+      units.add(unit1);
+      units.add(unit2);
+
+      JsonMaskingUtil.maskInJsonString(null, units);
+   }
+
+   @Test(expectedExceptions = JsonMaskingException.class)
+   public void testEmptyString() throws Exception {
+      JsonMaskingUnit unit1 = new JsonMaskingUnit("$..thing", new MaskFull());
+      JsonMaskingUnit unit2 = new JsonMaskingUnit("$.thing[1].thing.field", new MaskAll());
+
+      Set<JsonMaskingUnit> units = new HashSet<>();
+      units.add(unit1);
+      units.add(unit2);
+
+      JsonMaskingUtil.maskInJsonString("", units);
+   }
 }

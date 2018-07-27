@@ -40,6 +40,10 @@ public class XmlMaskingUtil {
     *            if any of the supplied xpaths are invalid.
     */
    public static String maskInXmlString(String xml, Set<XmlMaskingUnit> units) throws XmlMaskingException {
+      if (xml == null) {
+         throw new XmlMaskingException("Cannot mask null values");
+      }
+
       final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
       final DocumentBuilder documentBuilder;
       try {

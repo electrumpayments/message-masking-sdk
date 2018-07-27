@@ -22,13 +22,13 @@ public class JsonMaskingUtil {
     * @param json  the string containing the JSON to be masked
     * @param units masking units which specify which masking schemes should be applied to fields
     *              identified by JSONPath strings
-    * @return a pretty-printed string which is a masked version of the originally supplied string
+    * @return a pretty-printed string which is a masked version of the originally supplied string.
+    *              Null values are not valid JSON and result in a JsonMaskingException
     * @throws JsonMaskingException if the string provided cannot be parsed as JSON, or if the supplied JsonPath
     *                              is invalid
     */
    public static String maskInJsonString(String json, Set<JsonMaskingUnit> units)
            throws JsonMaskingException {
-
       try {
          Configuration pathConfiguration = Configuration.builder().options(Option.AS_PATH_LIST).build();
          DocumentContext pathContext = JsonPath.using(pathConfiguration).parse(json);
@@ -81,6 +81,8 @@ public class JsonMaskingUtil {
          throw new JsonMaskingException("Error attempting to parse the supplied String as JSON", ije);
       } catch (InvalidPathException ipe) {
          throw new JsonMaskingException("Error evaluating JSONPath", ipe);
+      } catch (IllegalArgumentException iae) {
+         throw new JsonMaskingException("Cannot mask empty or null JSON", iae);
       }
    }
 }
