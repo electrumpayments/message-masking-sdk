@@ -1,6 +1,8 @@
 package io.electrum.sdk.masking2.xml;
 
 import io.electrum.sdk.masking2.MaskAll;
+import io.electrum.sdk.masking2.MaskTrack2;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
@@ -111,6 +113,38 @@ public class XmlMaskingUtilTest {
       assertEquals(expResult, result);
    }
 
+
+   @Test(expectedExceptions = XmlMaskingException.class)
+   public void testEmptyString() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUtil.maskInXmlString("", units);
+   }
+
+   @Test(expectedExceptions = XmlMaskingException.class)
+   public void testNullString() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUtil.maskInXmlString(null, units);
+   }
+
+   @Test
+   public void testEmptyValidXml() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUnit unit = new XmlMaskingUnit("//text()", new MaskTrack2());
+
+      units.add(unit);
+
+      String xml = "<_/>";
+
+      String masked = XmlMaskingUtil.maskInXmlString(xml, units);
+
+      String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<_/>";
+
+      Assert.assertEquals(masked, expResult);
+   }
+     
    @Test
    public void testNoWhitespaceMasking() throws Exception {
       String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
