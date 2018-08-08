@@ -29,6 +29,9 @@ public class JsonMaskingUtil {
     */
    public static String maskInJsonString(String json, Set<JsonMaskingUnit> units)
            throws JsonMaskingException {
+      if (units == null) {
+         throw new JsonMaskingException("Null Set of JsonMaskingUnit objects - masking aborted");
+      }
       try {
          Configuration pathConfiguration = Configuration.builder().options(Option.AS_PATH_LIST).build();
          DocumentContext pathContext = JsonPath.using(pathConfiguration).parse(json);
@@ -60,7 +63,7 @@ public class JsonMaskingUtil {
                }
 
                // If its not some sort of map (JSON object) or JSONArray, the only options left are
-               // Integer and String. We need a string, so we convert accordingly
+               // Number and String. We need a string, so we convert accordingly
                String newValue;
 
                if (maskTarget instanceof Number) {

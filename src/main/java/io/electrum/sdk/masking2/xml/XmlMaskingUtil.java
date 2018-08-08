@@ -45,6 +45,10 @@ public class XmlMaskingUtil {
          throw new XmlMaskingException("Cannot mask null values");
       }
 
+      if (units == null) {
+         throw new XmlMaskingException("Null Set of XmlMaskingUnit objects - masking aborted");
+      }
+
       final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
       final DocumentBuilder documentBuilder;
       try {
