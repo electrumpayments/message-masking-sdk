@@ -16,6 +16,7 @@ found in the `io.electrum.sdk.masking2` package.
 * Previously, XML document nodes that contain only whitespace would be masked when referred to by XPath. This can be a 
 problem when masking XML that is already pretty-printed as whitespace characters between XML elements are considered 
 text nodes. This has been fixed: no whitespace-only node will be masked.  
+* Bug where PANs of length 10 do not get masked at all  
 
 ## Version 1.0.0 - 25 July 2018
 
