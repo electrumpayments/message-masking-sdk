@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking;
+package io.electrum.sdk.masking2;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

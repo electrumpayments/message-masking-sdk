@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -32,14 +32,23 @@ public class XmlMaskingUtil {
     * 
     * @param xml
     *           the string containing the XML that needs to be masked.
+    *           Null values are not valid XML and result in a XmlMaskingException
     * @param units
     *           which dictate which XML nodes should be masked (using an xpath) and how they should be masked.
     * @return A new string containing the masked version of the xml parameter.
     * @throws XmlMaskingException
     *            if any exception is encountered while parsing between a string and a {@link Document} or vice versa, or
-    *            if any of the supplied xpaths are invalid.
+    *            if any of the supplied XPaths are invalid.
     */
    public static String maskInXmlString(String xml, Set<XmlMaskingUnit> units) throws XmlMaskingException {
+      if (xml == null) {
+         throw new XmlMaskingException("Cannot mask null values");
+      }
+
+      if (units == null) {
+         throw new XmlMaskingException("Null Set of XmlMaskingUnit objects - masking aborted");
+      }
+
       final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
       final DocumentBuilder documentBuilder;
       try {
@@ -64,7 +73,12 @@ public class XmlMaskingUtil {
                Node node = nodes.item(i);
 
                if (node != null) {
-                  node.setNodeValue(unit.getMasker().mask(node.getNodeValue()));
+                  // There is no point in masking a string that is comprised of only whitespace
+                  String nodeValue = node.getNodeValue();
+
+                  if (nodeValue != null && !nodeValue.trim().isEmpty()) {
+                     node.setNodeValue(unit.getMasker().mask(nodeValue));
+                  }
                }
             }
 

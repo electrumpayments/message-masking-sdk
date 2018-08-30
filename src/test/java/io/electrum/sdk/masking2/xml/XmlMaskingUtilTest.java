@@ -1,6 +1,8 @@
-package io.electrum.sdk.masking.xml;
+package io.electrum.sdk.masking2.xml;
 
-import io.electrum.sdk.masking.MaskAll;
+import io.electrum.sdk.masking2.MaskAll;
+import io.electrum.sdk.masking2.MaskTrack2;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
@@ -103,6 +105,78 @@ public class XmlMaskingUtilTest {
             + "        <MerchandiseIssuer Id=\"0213\"/>\n"
             + "    </Response>\n"
             + "</PrepaidMerchandise>";
+
+      Set<XmlMaskingUnit> units = new HashSet<>();
+      units.add(unit);
+      String result = XmlMaskingUtil.maskInXmlString(xml, units);
+
+      assertEquals(expResult, result);
+   }
+
+
+   @Test(expectedExceptions = XmlMaskingException.class)
+   public void testEmptyString() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUtil.maskInXmlString("", units);
+   }
+
+   @Test(expectedExceptions = XmlMaskingException.class)
+   public void testNullString() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUtil.maskInXmlString(null, units);
+   }
+
+   @Test
+   public void testEmptyValidXml() throws Exception {
+      Set<XmlMaskingUnit> units = new HashSet<>();
+
+      XmlMaskingUnit unit = new XmlMaskingUnit("//text()", new MaskTrack2());
+
+      units.add(unit);
+
+      String xml = "<_/>";
+
+      String masked = XmlMaskingUtil.maskInXmlString(xml, units);
+
+      String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<_/>";
+
+      Assert.assertEquals(masked, expResult);
+   }
+     
+   @Test
+   public void testNoWhitespaceMasking() throws Exception {
+      String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+              + "<PrepaidMerchandise>\n"
+              + "    <Response ResponseCode=\"00\" ResponseMessage=\"Approved\" TransactionSeqNo=\"00000000\">\n"
+              + "        <Product NetworkID=\"2\" ProductID=\"Airtime\" Type=\"TELEPHONE PREPAY\" UserID=\"0828385603\"/>\n"
+              + "        <Tender Amount=\"1000\"/>\n"
+              + "        <Tender Amount=\"500\"/>\n"
+              + "        <Tender Amount=\"100\"/>\n"
+              + "        <MerchandiseItem Amount=\"1000\" DescriptiveValue=\"MTN Customer Care 173\" ItemMessage=\"How to recharge - Dial *141*Pin Number#|MTN Customer Care 173\" ItemSerialNumber=\"SABT80HJGSMW\" NetworkName=\"MTN\" PIN=\"2032001987992966\"/>"
+              + "        <MerchandiseIssuer Id=\"0213\"/>\n"
+              + "    </Response>\n"
+              + "    <Response>Response Text</Response>\n"
+              + "</PrepaidMerchandise>";
+
+      // Technically, the whitespace (spaces and newlines) in the first Response element count as text. We should be
+      // able to mask the text contents of any node given a tag name without that whitespace being masked
+
+      XmlMaskingUnit unit = new XmlMaskingUnit("//Response/text()", new MaskAll());
+
+      String expResult = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n"
+              + "<PrepaidMerchandise>\n"
+              + "    <Response ResponseCode=\"00\" ResponseMessage=\"Approved\" TransactionSeqNo=\"00000000\">\n"
+              + "        <Product NetworkID=\"2\" ProductID=\"Airtime\" Type=\"TELEPHONE PREPAY\" UserID=\"0828385603\"/>\n"
+              + "        <Tender Amount=\"1000\"/>\n"
+              + "        <Tender Amount=\"500\"/>\n"
+              + "        <Tender Amount=\"100\"/>\n"
+              + "        <MerchandiseItem Amount=\"1000\" DescriptiveValue=\"MTN Customer Care 173\" ItemMessage=\"How to recharge - Dial *141*Pin Number#|MTN Customer Care 173\" ItemSerialNumber=\"SABT80HJGSMW\" NetworkName=\"MTN\" PIN=\"2032001987992966\"/>"
+              + "        <MerchandiseIssuer Id=\"0213\"/>\n"
+              + "    </Response>\n"
+              + "    <Response>*************</Response>\n"
+              + "</PrepaidMerchandise>";
 
       Set<XmlMaskingUnit> units = new HashSet<>();
       units.add(unit);

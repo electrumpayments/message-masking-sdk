@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking;
+package io.electrum.sdk.masking2;
 
 /**
  * Returns a single masking character if the field is not empty. A null value will return null.

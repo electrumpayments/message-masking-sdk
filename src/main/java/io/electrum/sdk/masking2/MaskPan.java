@@ -1,4 +1,4 @@
-package io.electrum.sdk.masking;
+package io.electrum.sdk.masking2;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -21,7 +21,7 @@ public class MaskPan extends Masker {
          return value;
       }
 
-      if (value.length() < 10) {
+      if (value.length() <= 10) {
          return StringUtils.repeat(MaskingUtils.MASKING_CHAR, value.length());
       }
 
