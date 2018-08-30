@@ -16,6 +16,7 @@ public class MaskingTest {
    private static final String shortStr = "StringTo";
    private static final String track2Str = "1111222233334444=1710=";
 
+
    private static final String allMaskedExpected = StringUtils.repeat(MaskingUtils.MASKING_CHAR, maskingStr.length());
    private static final String allMaskedShortExpected =
          StringUtils.repeat(MaskingUtils.MASKING_CHAR, shortStr.length());
@@ -47,5 +48,15 @@ public class MaskingTest {
       Assert.assertEquals(
             maskPan.mask(shortStr),
             maskAll.mask(shortStr));
+   }
+
+   @Test void testPanLengthTen() throws Throwable {
+      String lengthTenPan = "0123456789";
+      String maskedLengthTenPan = "**********";
+      Assert.assertEquals(maskPan.mask(lengthTenPan), maskedLengthTenPan);
+
+      String lengthElevenPan = "01234567891";
+      String maskedLengthElevenPan = "012345*7891";
+      Assert.assertEquals(maskPan.mask(lengthElevenPan), maskedLengthElevenPan);
    }
 }

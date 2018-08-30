@@ -32,17 +32,21 @@ public class XmlMaskingUtil {
     * 
     * @param xml
     *           the string containing the XML that needs to be masked.
-    *           Null values are not valid XML and result in a JmlMaskingException
+    *           Null values are not valid XML and result in a XmlMaskingException
     * @param units
     *           which dictate which XML nodes should be masked (using an xpath) and how they should be masked.
     * @return A new string containing the masked version of the xml parameter.
     * @throws XmlMaskingException
     *            if any exception is encountered while parsing between a string and a {@link Document} or vice versa, or
-    *            if any of the supplied xpaths are invalid.
+    *            if any of the supplied XPaths are invalid.
     */
    public static String maskInXmlString(String xml, Set<XmlMaskingUnit> units) throws XmlMaskingException {
       if (xml == null) {
          throw new XmlMaskingException("Cannot mask null values");
+      }
+
+      if (units == null) {
+         throw new XmlMaskingException("Null Set of XmlMaskingUnit objects - masking aborted");
       }
 
       final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
