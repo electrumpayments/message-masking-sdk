@@ -8,22 +8,27 @@ import io.electrum.sdk.masking2.Masker;
 
 import java.io.IOException;
 
-public class MaskableValueSerializer extends StdSerializer<MaskableValue> {
+public class MaskableValuePersistenceSerializer extends StdSerializer<MaskableValue> {
 
    private static final long serialVersionUID = 1L;
    private final static Masker masker = new MaskAll();
 
-   public MaskableValueSerializer() {
+   public MaskableValuePersistenceSerializer() {
       super(MaskableValue.class);
    }
 
    @Override
    public void serialize(MaskableValue value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-
-      if (value.isSensitive()) {
-         gen.writeString(masker.mask(value.getValue()));
-      } else {
+      switch (value.getStorage()) {
+      case NOT_STORED:
+         gen.writeNull();
+         break;
+      case STORED_CLEAR:
          gen.writeString(value.getValue());
+         break;
+      case STORED_ENCRYPTED:
+         // we do not support encrypting from this serializer yet, so just be safe and don't write it
+         gen.writeNull();
       }
    }
 }
