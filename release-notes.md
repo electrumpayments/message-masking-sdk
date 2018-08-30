@@ -1,6 +1,6 @@
 # Message Masking SDK Release Notes
 
-## Version 2.0.0 - <!--Insert date of release here-->
+## Version 2.0.0 - 30 August 2018
 
 ### Breaking changes
 
@@ -16,7 +16,7 @@ found in the `io.electrum.sdk.masking2` package.
 * Previously, XML document nodes that contain only whitespace would be masked when referred to by XPath. This can be a 
 problem when masking XML that is already pretty-printed as whitespace characters between XML elements are considered 
 text nodes. This has been fixed: no whitespace-only node will be masked.  
-* Bug where PANs of length 10 do not get masked at all  
+* Bug where PANs of length 10 do not get masked at all has been fixed. 
 
 ## Version 1.0.0 - 25 July 2018
 
