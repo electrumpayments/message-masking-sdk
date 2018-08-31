@@ -1,5 +1,7 @@
 package io.electrum.sdk.masking2.maskablevalue;
 
+import java.util.Objects;
+
 /**
  * This object may be used in APIs to allow downstream to dictate which fields should be masked.
  * <p>
@@ -8,15 +10,22 @@ package io.electrum.sdk.masking2.maskablevalue;
 public class MaskableValue {
    private String value;
    private boolean sensitive = false;
+   private Storage storage = Storage.STORED_CLEAR;
 
-   public MaskableValue()   {
+   public MaskableValue() {
    }
-   
-   public MaskableValue(String value, boolean isSensitive)  {
+
+   public MaskableValue(String value, boolean isSensitive) {
       this.value = value;
       this.sensitive = isSensitive;
    }
-   
+
+   public MaskableValue(String value, boolean isSensitive, Storage storage) {
+      this.value = value;
+      this.sensitive = isSensitive;
+      this.storage = storage;
+   }
+
    public String getValue() {
       return value;
    }
@@ -32,31 +41,27 @@ public class MaskableValue {
    public void setSensitive(boolean sensitive) {
       this.sensitive = sensitive;
    }
-   
-   @Override
-   public int hashCode() {
-      return (31 * (this.value.hashCode() + ((sensitive) ? booleanTrueHashCode : booleanFalseHashCode)));
+
+   public Storage getStorage() {
+      return storage;
    }
-   
+
+   public void setStorage(Storage storage) {
+      this.storage = storage;
+   }
+
    @Override
    public boolean equals(Object o) {
-      if (this == o) {
+      if (this == o)
          return true;
-      }
-
-      if (o == null || getClass() != o.getClass()) {
+      if (o == null || getClass() != o.getClass())
          return false;
-      }
-
       MaskableValue that = (MaskableValue) o;
-
-      boolean isValueEquals = this.value.equals(that.getValue());
-      boolean isSensitiveEquals = this.sensitive == (that.isSensitive());
-
-      return isValueEquals && isSensitiveEquals;
+      return sensitive == that.sensitive && Objects.equals(value, that.value) && storage == that.storage;
    }
-   
-   // Booleans in Java only have 2 possible values, so initialise them once and reuse them.
-   private static int booleanTrueHashCode = new Boolean(true).hashCode();
-   private static int booleanFalseHashCode = new Boolean(false).hashCode();
+
+   @Override
+   public int hashCode() {
+      return Objects.hash(value, sensitive, storage);
+   }
 }
