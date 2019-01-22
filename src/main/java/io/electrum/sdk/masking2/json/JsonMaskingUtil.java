@@ -70,6 +70,8 @@ public class JsonMaskingUtil {
                   newValue = maskTarget.toString();
                } else if (maskTarget instanceof String) {
                   newValue = (String) maskTarget;
+               } else if (maskTarget == null) {
+                  newValue = null;
                } else {
                   throw new JsonMaskingException("Can't safely convert object of type " + maskTarget.getClass().toString()
                           + " to String");

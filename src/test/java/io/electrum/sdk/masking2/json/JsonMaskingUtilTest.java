@@ -2,6 +2,7 @@ package io.electrum.sdk.masking2.json;
 
 import io.electrum.sdk.masking2.MaskAll;
 import io.electrum.sdk.masking2.MaskFull;
+import io.electrum.sdk.masking2.MaskPan;
 import io.electrum.sdk.masking2.MaskTrack2;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -22,7 +23,8 @@ public class JsonMaskingUtilTest {
            "      3\n" +
            "   ],\n" +
            "   \"otherThing\" : {\n" +
-           "      \"thing\" : 145\n" +
+           "      \"thing\" : 145,\n" +
+           "      \"nullThing\" : null\n" +
            "   }\n" +
            "}";
 
@@ -64,7 +66,8 @@ public class JsonMaskingUtilTest {
               "      3\n" +
               "   ],\n" +
               "   \"otherThing\" : {\n" +
-              "      \"thing\" : \"*\"\n" +
+              "      \"thing\" : \"*\",\n" +
+              "      \"nullThing\" : null\n" +
               "   }\n" +
               "}";
 
@@ -110,5 +113,17 @@ public class JsonMaskingUtilTest {
       String masked = JsonMaskingUtil.maskInJsonString(json, units);
 
       Assert.assertEquals(masked, expected);
+   }
+
+   @Test
+   public void testNullField() throws Exception {
+      JsonMaskingUnit unit = new JsonMaskingUnit("$.otherThing.nullThing", new MaskPan());
+
+      Set<JsonMaskingUnit> units = new HashSet<>();
+      units.add(unit);
+
+      String masked = JsonMaskingUtil.maskInJsonString(originalJson, units);
+
+      Assert.assertEquals(masked, originalJson);
    }
 }

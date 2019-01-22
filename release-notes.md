@@ -1,5 +1,12 @@
 # Message Masking SDK Release Notes
 
+## Version 2.1.1 - 22 January 2019
+
+### Fixed
+
+* Fixed a bug in `JsonMaskingUtil` where null literals were not considered as one of the possible values of a JSON 
+field. The onus for handling null input appropriately is on implementations of `Masker`. 
+
 ## Version 2.0.0 - 30 August 2018
 
 ### Breaking changes
