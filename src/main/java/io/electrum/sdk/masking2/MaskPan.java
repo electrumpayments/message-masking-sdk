@@ -8,8 +8,8 @@ import org.apache.commons.lang.StringUtils;
  * eg. 1111222233334444 will be printed as 111122******4444 (where * is the masking character)
  */
 public class MaskPan extends Masker {
-   private static final int maskingStart = 6;
-   private static final int maskingEnd = 4;
+   private static final int MASKING_START = 6;
+   private static final int MASKING_END = 4;
 
    @Override
    public String mask(String value) {
@@ -29,13 +29,13 @@ public class MaskPan extends Masker {
    }
 
    private String obfuscatePan(String pan) {
-      int maskingLength = pan.length() - maskingStart - maskingEnd;
+      int maskingLength = pan.length() - MASKING_START - MASKING_END;
 
       StringBuilder sb = new StringBuilder();
 
-      sb.append(pan.substring(0, maskingStart));
+      sb.append(pan.substring(0, MASKING_START));
       sb.append(StringUtils.repeat(MaskingUtils.MASKING_CHAR, maskingLength));
-      sb.append(pan.substring(pan.length() - maskingEnd));
+      sb.append(pan.substring(pan.length() - MASKING_END));
 
       return sb.toString();
    }

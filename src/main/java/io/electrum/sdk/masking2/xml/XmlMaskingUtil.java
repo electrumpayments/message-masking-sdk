@@ -6,6 +6,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -98,6 +99,7 @@ public class XmlMaskingUtil {
    private static String documentToXml(Document document, boolean standAlone, boolean indent)
          throws TransformerException {
       final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
       final Transformer transformer = transformerFactory.newTransformer();
 
       transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");

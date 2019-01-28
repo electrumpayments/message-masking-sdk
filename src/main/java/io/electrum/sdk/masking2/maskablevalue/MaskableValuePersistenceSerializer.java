@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MaskableValuePersistenceSerializer extends StdSerializer<MaskableValue> {
 
    private static final long serialVersionUID = 1L;
-   private final static Masker masker = new MaskAll();
+   private static final Masker masker = new MaskAll();
 
    public MaskableValuePersistenceSerializer() {
       super(MaskableValue.class);
