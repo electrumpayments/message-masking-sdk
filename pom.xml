@@ -5,7 +5,7 @@
   <groupId>io.electrum</groupId>
   <artifactId>message-masking-sdk</artifactId>
   <packaging>jar</packaging>
-  <version>2.1.1</version>
+  <version>2.1.2</version>
   <name>Message Masking SDK</name>
   <description>SDK for masking fields in Electrum messages</description>
   <url>https://github.com/electrumpayments/message-masking-sdk</url>
@@ -123,8 +123,7 @@
                 <contextUrl>${artifactory-url}/</contextUrl>
                 <username>${artifactory-username}</username>
                 <password>${artifactory-password}</password>
-                <repoKey>libs-release-local</repoKey>
-                <snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+                <repoKey>oss-local</repoKey>
               </publisher>
             </configuration>
           </execution>
