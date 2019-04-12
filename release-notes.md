@@ -1,5 +1,13 @@
 # Message Masking SDK Release Notes
 
+## Version 2.1.3 - 12 April 2019
+
+### Fixed
+
+* Previously, attempts to mask track 2 data that contains no field separators would result in an 
+`IllegalStateException`. There are legitimate cases, however, where track 2 data does not have any field separators and 
+masking should not be disrupted. In such cases, the `MaskAll` scheme is applied.
+
 ## Version 2.1.1 - 22 January 2019
 
 ### Fixed

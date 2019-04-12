@@ -50,6 +50,21 @@ public class MaskingTest {
             maskAll.mask(shortStr));
    }
 
+   @Test
+   public void testNoFieldSeparatorTrack2() throws Throwable {
+      Assert.assertEquals(maskTrack2.mask(maskingStr), allMaskedExpected);
+   }
+
+   @Test
+   public void testEmptyFieldTrack2() throws Throwable {
+      Assert.assertEquals(maskTrack2.mask(emptyStr), emptyStr);
+   }
+
+   @Test
+   public void testShortFieldTrack2() throws Throwable {
+      Assert.assertEquals(maskTrack2.mask(shortStr), allMaskedShortExpected);
+   }
+
    @Test void testPanLengthTen() throws Throwable {
       String lengthTenPan = "0123456789";
       String maskedLengthTenPan = "**********";

@@ -17,6 +17,10 @@ public class MaskTrack2 extends Masker {
       // Assumes the same separator will be used throughout the track data
       String separator = findSeparator(value);
 
+      if (separator == null) {
+         return new MaskAll().mask(value);
+      }
+
       StringBuilder maskedValue = new StringBuilder();
 
       String[] splitTrack = value.split(separator);
@@ -45,7 +49,11 @@ public class MaskTrack2 extends Masker {
       }
 
       if (fieldSeparatorIndex == -1) {
-         throw new IllegalStateException("No field separator found in track 2 data: " + value);
+         // Previously, this would throw an IllegalStateException
+         // As it turns out, there are certain cards for which we have to accept payments where the track 2 data has
+         // *no* field separators, and we don't want to bomb-out in those cases. So our default behaviour in this case
+         // will be to mask the entirety of the field data
+         return null;
       }
 
       return separator;
